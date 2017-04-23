@@ -3,15 +3,22 @@ defmodule Rumbl.Mixfile do
 
   def project do
     [
-      app:             :rumbl,
-      version:         "0.0.1",
-      elixir:          "~> 1.2",
-      elixirc_paths:   elixirc_paths(Mix.env),
-      compilers:       [:phoenix, :gettext] ++ Mix.compilers,
-      build_embedded:  Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
-      aliases:         aliases(),
-      deps:            deps()
+      app:               :rumbl,
+      version:           "0.0.1",
+      elixir:            "~> 1.4",
+      elixirc_paths:     elixirc_paths(Mix.env),
+      compilers:         [:phoenix, :gettext] ++ Mix.compilers,
+      build_embedded:    Mix.env == :prod,
+      start_permanent:   Mix.env == :prod,
+      aliases:           aliases(),
+      deps:              deps(),
+      test_coverage:     [tool: ExCoveralls],
+      preferred_cli_env: [
+        "coveralls":        :test,
+        "coveralls.detail": :test,
+        "coveralls.post":   :test,
+        "coveralls.html":   :test
+      ]
     ]
   end
 
@@ -37,7 +44,9 @@ defmodule Rumbl.Mixfile do
       {:phoenix_ecto,        "~> 3.0"},
       {:postgrex,            ">= 0.0.0"},
       {:phoenix_html,        "~> 2.6"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_live_reload, "~> 1.0",   only: :dev},
+      {:credo,               "~> 0.7.3", only: [:test, :dev]},
+      {:excoveralls,         "~> 0.6.3", only: :test},
       {:gettext,             "~> 0.11"},
       {:cowboy,              "~> 1.0"},
       {:comeonin,            "~> 3.0"}
